@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #left_slide{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 300px;
+        }
+        #left_slide li{
+            width: 100%;
+            height: 60px;
+            line-height: 60px;
+            border: 1px solid #000;
+            cursor: pointer;
+        }
+        #left_slide li:hover{
+            background: #000;
+            color: #fff
+        }
+
+        #right_content{
+            margin-left: 500px;
+            width: 500px;
+        }
+        #right_content div{
+            width: 100%;
+            height: 800px;
+        }
+
+        #right1{
+            background: red;
+        }
+        #right2{
+            background: yellow;
+        }
+        #right3{
+            background: green;
+        }
+        #right4{
+            background: blue;
+        }
+        #right5{
+            background: pink;
+        }
+
+        .selected{
+            background: #ccc;
+        }
+        .selected a{
+            color: red;
+        }
+    </style>
+</head>
+<body id='body'>
+    <ul id="left_slide">
+        <li class='selected'><a href="#right1">1111111</a></li>
+        <li><a href="#right2">22222222</a></li>
+        <li><a href="#right3">33333333</a></li>
+        <li><a href="#right4">44444444</a></li>
+        <li><a href="#right5">5555555</a></li>
+    </ul>
+
+    <div id='right_content'>
+        <div id="right1"></div>
+        <div id="right2"></div>
+        <div id="right3"></div>
+        <div id="right4"></div>
+        <div id="right5"></div>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            //左侧锚点链接点击时联动
+            $('ul li').click(function() {
+                $(this).addClass('selected').siblings().removeClass('selected')
+            })
+
+            // 滚轮滚动链接左边文字
+            $(window).scroll(function() {
+                for(let i = 1; i <= $('ul li').length; i++) {
+                    let dom = '#right' + i;
+                    let height = $(dom).offset().top - $(window).scrollTop()
+                    if(height > -50 && height < 50) {
+                        $('ul li').eq(i-1).addClass('selected').siblings().removeClass('selected')
+                    }
+                }
+            });
+        })
+    </script>
+</body>
+</html>
